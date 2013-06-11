@@ -1,9 +1,16 @@
 Demo::Application.routes.draw do
-  root :to => "users#index"
+  
   resources :users
-  match "signup" , :to => "users#new"
+  
+  resources :sessions, only: [:new, :create, :destroy]
+  root :to => "users#index"
+  match '/signup',  to: 'users#new'
+  match '/signin',  to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
+  
   get "static_pages/home"
   get "static_pages/help"
+  get "static_pages/contact"
   
   
 
